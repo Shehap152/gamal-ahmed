@@ -10,8 +10,8 @@
     * { box-sizing: border-box; }
     body { font-family: "Tajawal", sans-serif; }
     .amiri { font-family: "Amiri", serif; }
-    .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(212,175,55,0.18); }
-    .glass-strong { background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); border: 1px solid rgba(212,175,55,0.25); }
+    .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.18); }
+    .glass-strong { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.25); }
     .star { position: absolute; border-radius: 9999px; background: #d4af37; opacity: 0.75; animation: twinkle 2.6s ease-in-out infinite; }
     .lantern {
       position: absolute;
@@ -41,7 +41,7 @@
       width: 36px;
       height: 36px;
       border-radius: 9999px;
-      background: radial-gradient(circle, rgba(212,175,55,0.28), transparent 70%);
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.28), transparent 70%);
     }
     .crescent {
       width: 40px;
@@ -50,6 +50,29 @@
       box-shadow: 8px -2px 0 0 #d4af37;
     }
     .count-bump { animation: bump 180ms ease-out; }
+    .section-title-line {
+      width: 80px;
+      height: 1px;
+      margin: 0 auto 1rem;
+      background: linear-gradient(to left, transparent, rgba(212, 175, 55, 0.9), transparent);
+    }
+    .post-card {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212, 175, 55, 0.35);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+    }
+    .post-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), transparent 45%);
+      pointer-events: none;
+    }
     @keyframes twinkle {
       0%, 100% { opacity: 0.25; transform: scale(0.9); }
       50% { opacity: 1; transform: scale(1.15); }
@@ -68,14 +91,14 @@
     ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 9999px; }
   </style>
 </head>
-<body class="h-full bg-[#0d0d1a] text-white overflow-x-hidden">
+<body class="h-full overflow-x-hidden bg-[#0d0d1a] text-white">
   <div class="relative min-h-full">
     <div id="stars-container" class="pointer-events-none fixed inset-0 overflow-hidden"></div>
     <div class="lantern top-10 right-10"></div>
     <div class="lantern top-20 left-14" style="animation-delay: 1s;"></div>
     <div class="lantern top-40 right-[28%]" style="animation-delay: 2s;"></div>
 
-    <main class="relative z-10 mx-auto max-w-4xl px-4 py-8">
+    <main class="relative z-10 mx-auto max-w-5xl px-4 py-8">
       <section class="mb-12 text-center">
         <div class="mb-6 flex justify-center">
           <div class="crescent"></div>
@@ -108,6 +131,7 @@
 
       <section class="mb-8">
         <div class="glass rounded-2xl p-6">
+          <div class="section-title-line"></div>
           <h2 class="amiri mb-4 text-center text-2xl text-[#d4af37]">القرآن الكريم</h2>
           <div class="glass-strong mb-4 rounded-xl p-4">
             <p class="amiri text-center text-xl leading-loose text-gray-200">
@@ -128,6 +152,7 @@
 
       <section class="mb-8">
         <div class="glass rounded-2xl p-6">
+          <div class="section-title-line"></div>
           <h2 class="amiri mb-4 text-center text-2xl text-[#d4af37]">الأذكار</h2>
           <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div class="glass-strong rounded-xl p-4 text-center">
@@ -148,6 +173,7 @@
 
       <section class="mb-8">
         <div class="glass rounded-2xl p-6 text-center">
+          <div class="section-title-line"></div>
           <h2 class="amiri mb-4 text-2xl text-[#d4af37]">التسبيح الرقمي</h2>
           <div class="mb-4 flex flex-wrap justify-center gap-4">
             <button class="tasbeeh-type glass rounded-full px-4 py-2 text-sm transition hover:bg-[#d4af37]/20" data-text="سبحان الله">سبحان الله</button>
@@ -164,6 +190,7 @@
 
       <section class="mb-8">
         <div class="glass rounded-2xl p-6">
+          <div class="section-title-line"></div>
           <h2 class="amiri mb-4 text-center text-2xl text-[#d4af37]">أدعية للمتوفى</h2>
           <div class="space-y-4">
             <div class="glass-strong rounded-xl p-4">
@@ -180,11 +207,29 @@
       </section>
 
       <section class="mb-8">
+        <div class="glass rounded-2xl p-6">
+          <div class="section-title-line"></div>
+          <div class="mb-5 text-center">
+            <h2 class="amiri text-2xl text-[#d4af37]">بوستات دينية صدقة جارية</h2>
+            <p class="mt-2 text-sm text-gray-400">مجموعة بوستات دينية نافعة يمكن قراءتها ونشرها لتكون صدقة جارية بإذن الله.</p>
+          </div>
+          <div id="posts-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
+          <p id="posts-empty" class="hidden rounded-xl border border-dashed border-[#d4af37]/30 px-4 py-6 text-center text-sm text-gray-400">
+            لسه ما فيش بوستات مضافة. ابعت روابط البوستات وأنا أضيفها لك.
+          </p>
+        </div>
+      </section>
+
+      <section class="mb-8">
         <div class="glass rounded-2xl p-6 text-center">
-          <h2 class="amiri mb-4 text-xl text-[#d4af37]">شارك الصدقة الجارية</h2>
-          <div class="flex flex-wrap justify-center gap-4">
-            <a href="https://wa.me/?text=%D8%B5%D8%AF%D9%82%D8%A9%20%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer" class="rounded-full bg-[#25d366] px-6 py-3 font-bold text-white transition hover:opacity-90">واتساب</a>
-            <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" rel="noopener noreferrer" class="rounded-full bg-[#1877f2] px-6 py-3 font-bold text-white transition hover:opacity-90">فيسبوك</a>
+          <div class="section-title-line"></div>
+          <h2 class="amiri mb-2 text-xl text-[#d4af37]">شارك الصدقة الجارية</h2>
+          <p class="mb-4 text-sm text-gray-400">شارك صفحة الصدقة أو أي بوست من الذكريات على السوشيال ميديا.</p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <a id="share-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="rounded-full bg-[#25d366] px-6 py-3 font-bold text-white transition hover:opacity-90">واتساب</a>
+            <a id="share-facebook" href="#" target="_blank" rel="noopener noreferrer" class="rounded-full bg-[#1877f2] px-6 py-3 font-bold text-white transition hover:opacity-90">فيسبوك</a>
+            <a id="share-twitter" href="#" target="_blank" rel="noopener noreferrer" class="rounded-full bg-[#111111] px-6 py-3 font-bold text-white transition hover:opacity-90">إكس</a>
+            <a id="share-telegram" href="#" target="_blank" rel="noopener noreferrer" class="rounded-full bg-[#229ed9] px-6 py-3 font-bold text-white transition hover:opacity-90">تيليجرام</a>
           </div>
         </div>
       </section>
@@ -197,6 +242,60 @@
   </div>
 
   <script>
+    const memorialName = "جمال أحمد";
+    const posts = [
+      {
+        title: "بوست ديني 1",
+        url: "https://www.facebook.com/share/p/1DmQ58WxCG/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 2",
+        url: "https://www.facebook.com/share/p/1Do5zKxwCn/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 3",
+        url: "https://www.facebook.com/share/p/1BGCAeCrw2/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 4",
+        url: "https://www.facebook.com/share/p/18aqrmqCWW/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 5",
+        url: "https://www.facebook.com/share/p/1GuWxNBRuc/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 6",
+        url: "https://www.facebook.com/share/p/1HDQpjRQmf/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 7",
+        url: "https://www.facebook.com/share/p/1CkvFbB24F/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 8",
+        url: "https://www.facebook.com/share/p/1Ayy8eCiM3/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 9",
+        url: "https://www.facebook.com/share/p/18dpmZWUf1/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      },
+      {
+        title: "بوست ديني 10",
+        url: "https://www.facebook.com/share/p/1P62UakC4n/",
+        note: "بوست ديني يمكن قراءته ومشاركته كصدقة جارية."
+      }
+    ];
+
     const starsContainer = document.getElementById("stars-container");
     for (let i = 0; i < 50; i += 1) {
       const star = document.createElement("div");
@@ -263,7 +362,7 @@
 
     if (localStorage.getItem(clickedKey) === "true") {
       prayBtn.disabled = true;
-      prayBtn.classList.add("opacity-70", "cursor-not-allowed");
+      prayBtn.classList.add("cursor-not-allowed", "opacity-70");
       prayBtn.textContent = "تم الدعاء";
     }
 
@@ -280,9 +379,86 @@
       updatePrayerCount(nextCount);
 
       prayBtn.disabled = true;
-      prayBtn.classList.add("opacity-70", "cursor-not-allowed");
+      prayBtn.classList.add("cursor-not-allowed", "opacity-70");
       prayBtn.textContent = "تم تسجيل الدعاء";
     });
+
+    function buildShareLinks() {
+      const pageUrl = window.location.href;
+      const shareText = `صدقة جارية على روح ${memorialName}`;
+      document.getElementById("share-whatsapp").href = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n${pageUrl}`)}`;
+      document.getElementById("share-facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+      document.getElementById("share-twitter").href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`;
+      document.getElementById("share-telegram").href = `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(shareText)}`;
+    }
+
+    function copyText(text, button) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = "تم النسخ";
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1500);
+      }).catch(() => {
+        window.prompt("انسخ الرابط من هنا", text);
+      });
+    }
+
+    function renderPosts() {
+      const postsGrid = document.getElementById("posts-grid");
+      const postsEmpty = document.getElementById("posts-empty");
+      const validPosts = posts.filter((post) => post.url && post.url.trim() && post.url !== "https://www.facebook.com/");
+
+      if (!validPosts.length) {
+        postsEmpty.classList.remove("hidden");
+        return;
+      }
+
+      postsEmpty.classList.add("hidden");
+
+      validPosts.forEach((post, index) => {
+        const card = document.createElement("article");
+        card.className = "post-card glass-strong rounded-2xl p-5";
+
+        const title = document.createElement("h3");
+        title.className = "mb-2 text-lg font-bold text-[#d4af37]";
+        title.textContent = post.title || `بوست ${index + 1}`;
+
+        const note = document.createElement("p");
+        note.className = "mb-4 text-sm leading-7 text-gray-300";
+        note.textContent = post.note || "بوست من الذكريات على فيسبوك.";
+
+        const actions = document.createElement("div");
+        actions.className = "flex flex-wrap gap-3";
+
+        const openLink = document.createElement("a");
+        openLink.href = post.url;
+        openLink.target = "_blank";
+        openLink.rel = "noopener noreferrer";
+        openLink.className = "rounded-full bg-[#1877f2] px-4 py-2 text-sm font-bold text-white transition hover:opacity-90";
+        openLink.textContent = "فتح البوست";
+
+        const shareLink = document.createElement("a");
+        shareLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(post.url)}`;
+        shareLink.target = "_blank";
+        shareLink.rel = "noopener noreferrer";
+        shareLink.className = "rounded-full bg-[#25d366] px-4 py-2 text-sm font-bold text-white transition hover:opacity-90";
+        shareLink.textContent = "مشاركة البوست";
+
+        const copyButton = document.createElement("button");
+        copyButton.type = "button";
+        copyButton.className = "rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/15";
+        copyButton.textContent = "نسخ الرابط";
+        copyButton.addEventListener("click", () => copyText(post.url, copyButton));
+
+        actions.append(openLink, shareLink, copyButton);
+        card.append(title, note, actions);
+        postsGrid.appendChild(card);
+      });
+    }
+
+    buildShareLinks();
+    renderPosts();
   </script>
 </body>
 </html>
